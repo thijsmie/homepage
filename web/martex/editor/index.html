@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Custom -->
+    <link href="css/editor.css" rel="stylesheet" type="text/css" />
+    <link href="css/martex.css" rel="stylesheet" type="text/css" />
+    <script src="js/editor.js"></script>
+    <script src="js/martex.js"></script>
+
+    <!-- JQuery -->
+    <script src="vendor/jquery/js/jquery.min.js"></script>
+
+    <!-- Highlight JS -->
+    <link href="vendor/highlightjs/css/tomorrow-night-eighties.css" rel="stylesheet" type="text/css" />
+    <script src="vendor/highlightjs/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <!-- Ace Editor -->
+    <script src="vendor/ace/js/ace.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <img src="img/martex-cpp-logo.png" height="123px"/>
+        <div id="line1"></div>
+        <div id="line2"></div>
+        <div id="line3"></div>
+    </div>
+    <div id="leftcol">
+    </div>
+    <div id="midcol">
+        <div id="dragbar">
+            <div id="handle"></div>
+        </div>
+        <div id="editor"></div>
+        <div id="formview"></div>
+    </div>
+    <div id="rightcol">
+        
+    </div>
+    <div id="footer">
+        &copy;2019 - Thijs Miedema
+    </div>
+    <script>libEditor.load();</script>
+</body>
+</html>
