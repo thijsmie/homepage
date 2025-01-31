@@ -1,0 +1,134 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <title>Rollbot, by Thijs Miedema</title>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="d20.png"/>
+
+    <style>
+        html {
+            background-color: #f9f2f2;
+            font-family: 'Droid Sans', sans-serif;
+        }
+
+        body {
+            margin: 50px auto;
+            padding: 0px 20px;
+            top: 200px;
+            overflow: auto;
+            max-width: 1040px;
+            height: 100%;
+            line-height: 1.6;
+        }
+
+        .return {
+            overflow: auto;
+            height: 250px;
+        }
+
+        a {
+            color: #7f0707;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .rb {
+            color: #7f0707;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        <img style="width:50px;vertical-align:middle" src="d20.png">
+        <span style="color: #473423; ">RollBot, by Thijs Miedema</span>
+    </h1>
+
+    <p>Playing tabletop online via discord? Do you feel you don't need the complexity that a VTT like Roll20 brings? You just want to roll dice in chat? Then RollBot is the tool for you.</p>
+    <p>Rollbot rolls dice and makes that easy. There are no complex and tedious to set up character sheet integrations, altough nothing is stopping you from writing one.</p>
+    <h5>Usage</h5>
+    <p>Rollbot uses discord slash commands: /roll and /distribution are the main ways to use it.</p>
+<pre>
+    <b>Thijs</b> /roll d20+2
+    <span class='rb'>RollBot</span> Thijs: 1d20{12} + 2 -> 14
+    <b>Thijs</b> I attack the orc with my mace!
+    <b>Thijs</b> /roll 1d8+2d6+1
+    <span class='rb'>RollBot</span> Thijs: 1d8{4} + 2d6{1,2} + 1 -> 8
+</pre>
+    <p>Dice rolling syntax is very straightforward and does not contain any special setup for different tabletop systems.</p>
+<pre>
+    <b>Thijs</b> /roll d20
+    <span class='rb'>RollBot</span> Thijs: 1d20{10} -> 10
+    <b>Thijs</b> /roll 1d20
+    <span class='rb'>RollBot</span> Thijs: 1d20{1} -> 1
+
+    <b>Thijs</b> Multiple dice
+    <b>Thijs</b> /roll 3d8
+    <span class='rb'>RollBot</span> Thijs: 3d8{3, 6, 3} -> 12
+
+    <b>Thijs</b> Weird dice
+    <b>Thijs</b> /roll d42
+    <span class='rb'>RollBot</span> Thijs: 1d42{17} -> 17
+
+    <b>Thijs</b> Do some simple arithmatic:
+    <b>Thijs</b> /roll d20 + 3
+    <span class='rb'>RollBot</span> Thijs: (1d20{15} + 3) -> 18
+    <b>Thijs</b> /roll d2 - 1
+    <span class='rb'>RollBot</span> Thijs: (1d2{2} - 1) -> 1
+    <b>Thijs</b> /roll 3 * d20
+    <span class='rb'>RollBot</span> Thijs: 3 * 1d20{7} -> 21
+    <b>Thijs</b> /roll 10 / d8
+    <span class='rb'>RollBot</span> Thijs: 10 / 1d8{6} -> 1
+
+    <b>Thijs</b> Functions
+    <b>Thijs</b> /roll max(d20,d20)
+    <span class='rb'>RollBot</span> Thijs: max(1d20{13}, 1d20{6}) -> 13
+    <b>Thijs</b> /roll min(d20,d20)
+    <span class='rb'>RollBot</span> Thijs: min(1d20{18}, 1d20{19}) -> 18
+
+    <b>Thijs</b> Custom list of options, like the Fudge die:
+    <b>Thijs</b> /roll {-1,0,1}
+    <span class='rb'>RollBot</span> Thijs: {1} -> 1
+
+    <b>Thijs</b> Comparisons
+    <b>Thijs</b> /roll 1 + (d20 > 5) * d10
+    <span class='rb'>RollBot</span> Thijs: (1 + (1d20{15} > 5) * 1d10{2}) -> 3
+</pre>
+    <p>Some of these might get a bit tedious to type all the time. By setting up some macros/variables you can still make RollBot convenient for whatever system you are using. These macros are user specific.</p>
+<pre>
+    <b>Thijs</b> Setup advantage/disadvantage rolls for d&amp;d5e:
+    <b>Thijs</b> /roll adv = max(d20,d20)
+    <span class='rb'>RollBot</span> Thijs: adv = max(d20, d20)
+    <b>Thijs</b> /roll dis = min(d20,d20)
+    <span class='rb'>RollBot</span> Thijs: dis = min(d20, d20)
+    <b>Thijs</b> Roll stealth at disadvantage!
+    <b>Thijs</b> /roll dis-3
+    <span class='rb'>RollBot</span> Thijs: (dis{min(1d20{1}, 1d20{1})} - 3) -> -2
+</pre>
+    <p>A final feature is the ability to plot distributions of dicerolls:</p>
+<pre>
+    <b>Thijs</b> I crit the goblin!
+    <b>Thijs</b> /roll 3d8+2d6
+    <span class='rb'>RollBot</span> Thijs: (3d8{1, 1, 1} + 2d6{1, 1}) -> 5
+    <b>Thijs</b> Are you kidding me?!
+    <b>Thijs</b> /distribution 3d8+2d6
+    <span class='rb'>RollBot</span> 
+        <img style="width:40%;" src="distribution_3d82d6.png">
+    <b>Thijs</b> Pfffff....
+</pre>
+
+    <h5>Deployment</h5>
+    <p>You can get started with Rollbot in two different ways</p>
+    <ul>
+        <li><b>Host it yourself</b>. Rollbot is open source and can be found <a href="https://github.com/thijsmie/rollbot">here</a> on my github. Configuration for deployment on Heroku is included. You can also just run it locally only when you need it.</li>
+        <li><b>Use the bot I host</b> by clicking <a href="https://discord.com/oauth2/authorize?client_id=712234733542572063&scope=bot&permissions=35840">here</a>. Its stability under high load and wide usage still has to be proven, so no guarantees.</li>
+    </ul>
+    <p>Rollbot was fully developed in my free time. If you appreciate my work you can buy me a coffee over on <a href="https://ko-fi.com/thijsmie">Ko-Fi</a>. Also, feel free to send suggestions or report bugs <a href="https://github.com/thijsmie/rollbot">GitHub</a>. Join the <a href="https://discord.gg/T7AMAQw">discord support server</a> if you need any help setting things up. You can also reach me by email, 'roll <i>AT</i> tmiedema.com'.</p>
+    
+    <span style="color: #515151; ">&copy;2020 Thijs Miedema</span>
+</body>
+
+</html>
